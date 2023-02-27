@@ -7,3 +7,5 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: es
+URL: https://github.com/jstoetz/p2023-03-spread-data
+BugReports: https://github.com/jstoetz/p2023-03-spread-data/issues
