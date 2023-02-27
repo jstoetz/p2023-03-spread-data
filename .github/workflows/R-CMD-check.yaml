@@ -8,13 +8,10 @@ name: R-CMD-check
 
 jobs:
   R-CMD-check:
-  
     runs-on: macos-latest
-    
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-      
     steps:
       - uses: actions/checkout@v3
 
@@ -24,26 +21,21 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 2
-          extra-packages: |
+          packages: |
+            any::gh
             any::ggplot2
             any::tidyverse
-            any::rcmdcheck
-          needs: |
-            website
-            coverage
+            any::readr
 
       - name: Generate data
         shell: Rscript {0}
-        run: source("R/jobs.R")
+        run: |
+          source("R/jobs.R")
 
       - name: Commit files
-          run: |
-            git config --local user.name github-actions
-            git config --local user.email "actions@github.com"
-            git add data/*
-            git commit -am "action $(date)"
-            git push origin main --force
-          env:
-            REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-            username: github-actions
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add .
+          git commit -am "action $(date)"
+          git push origin main --force
