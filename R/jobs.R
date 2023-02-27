@@ -31,4 +31,4 @@ df_avg <-
 #write.csv(df_tpt_file, paste0("raw-data/", paste(Sys.Date(),"raw-ncaa-predictions.csv", sep="-")))
 
 # save the data table
-write.csv(df_avg, paste(Sys.Date(),"ncaa-predictions.csv", sep="-"))
+write.csv(df_avg, paste0("raw-data/", paste(Sys.Date(),"ncaa-predictions.csv", sep="-")))
