@@ -8,10 +8,13 @@ name: R-CMD-check
 
 jobs:
   R-CMD-check:
+  
     runs-on: macos-latest
+    
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      
     steps:
       - uses: actions/checkout@v3
 
@@ -21,18 +24,26 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
-          needs: check
+          cache-version: 2
+          extra-packages: |
+            any::ggplot2
+            any::tidyverse
+            any::rcmdcheck
+          needs: |
+            website
+            coverage
 
       - name: Generate data
-        run: |
-          source("R/jobs.R")
         shell: Rscript {0}
+        run: source("R/jobs.R")
 
       - name: Commit files
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add --all
-          git commit -am "add data"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "generated"
           git push
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
