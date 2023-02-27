@@ -4,6 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Jake", "Stoetzner", , "jake.stoetzner@gmail.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
+Imports: tidyverse, ggplot2
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: es
