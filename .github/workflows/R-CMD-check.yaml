@@ -36,6 +36,6 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          git add .
+          git add --all
           git commit -am "action $(date)"
-          git push origin main --force
+          git push
